@@ -1,0 +1,182 @@
+1. git init: para inicializar el repositorio de git en nuestra carpeta local, crea el archivo .git, que es donde se van a guardar los cambios atomicos
+   de nuestros archivos.
+
+2. git status: para ver el estado actual del proyecto, muestra los commits, untracked files, en que rama estamos, etc.
+
+3. git add: para añadir el archivo a staging area, es decir para prepararlo y luego hacer el commit.
+
+4. git rm --cached <nombre del archivo>: para quitar el archivo de staging area.
+
+5. git commit -m "<mensaje descriptivo>": para mandar todos los cambios que esten en staging area al repositorio de git, es decir a la carpeta .git
+
+6. git config: para ver todas las configuraciones que se le pueden hacer a git.
+
+7. git config --list: para ver todas las configuraciones que tengo en este momento, y las que no aparecen, faltan por configurarse.
+
+8. git config --list --show-origin: muestra en donde (la ruta) estan guardadas las configuraciones.
+
+9. git config --global user.name '<nombre de usuario>': para cambiar el usuario global de git.
+
+10. git config --global user.mail '<correo del usuario>': para cambiar el correo global de git.
+
+11. git add .: para pasar a staging todos los archivos y no tener que hacerlo uno por uno con el nombre del archivo.
+
+12. git log <nombre del archivo>: muestra la historia del archivo, es decir todos los commits que se han hecho con datos de quien lo hizo y cuando.
+
+13. git log --oneline <nombre del archivo>: muestra los commits del archivo pero de manera abreviada, ya no muestra quien ni cuando lo hizo, solo el tag.
+
+14. git show <nombre del archivo>: para mostrar los cambios que se le han hecho a un archivo desde la version anterior a la version actual.
+
+15. git diff <sha de la version mas vieja> <sha de la version mas reciente>: me muestra los cambios de las versiones relacionadas, el orden es importante.
+
+NOTA: cuando ejecutamos el comando git init pasan varias cosas... en la memoria RAM se crea el staging area y tambien se crea el repositorio donde van a vivir los cambios que hagamos,
+este repositorio es la carpeta .git (es como master), cuando hacemos git add, estamos pasando el archivo a staging, y cuando hacemos git commit lo estamos pasando al repositorio.
+
+16. git reset --hard <sha del commit al que queremos volver>: es como viajar al pasado, nos lleva al commit indicado y PELIGRO borra todo lo que habíamos hecho despues de ese commit.
+
+17. git diff: muestra las diferencias entre el directorio actual y staging.
+
+18. git restore --staged <nombre del archivo>: para quitar de staging, es como git rm --cached, pero nuevo.
+
+19. git log --stat: muestra los cambios que se insertaron o se borraron en cada commit. (se puede combinar con e flag --oneline).
+
+20. git checkout <sha del commit> <nombre del archivo que quiero de regreso>: para ver como era un archivo en un determinado commit.
+
+21. git checkout master <nombre del archivo>: para volver al estado actual del archivo, es decir el último commit.
+
+NOTA: git checkout nos permite ir al pasado, pasear, mirar y volver, pero git reset deja ir al pasado sin la posiblidad de volver.
+      git rm sirve para borrar el archivo de git pero sin perder su historial del sistema de versiones, git rm --cached lo borra del repositorio local y de staging pero lo mantiene
+      en el disco duro, git rm --force lo borra tambien del disco duro.
+
+22. git push: para enviar el ultimo commit al repositorio remoto.
+
+23. git fetch: para traer los cambios que alguien mas haya hecho en el repositorio remoto a mi repositorio local. (OJO no los copia a mi directorio de trabajo).
+
+24. git merge: para pasar los cambios que traje con git fetch a mi directorio local.
+
+25. git pull: es hacer un git fetch y git pull, es decir trae los cambios del repositorio remoto a mi repositorio local Y los pone también en mi directorio trabajo.
+
+26. git commit -am '<mensaje despues>': este comando es como un git add y git commit pero juntos, sin tener que hacer primero git add y luego git commit.
+
+27. git branch <nomnbre que quiero ponerle a la rama>: para crear una nueva rama a portir del estado actual, es decir desde master.
+
+NOTA: git show también se usa para ver las ramas que tengo.
+
+28. git checkout <nombre de la rama>: además de permitirme moverme entre commits, también me permite moverme entre ramas.
+
+NOTA: cuando quiero hacer merge, me tengo que parar en la rama donde quiero que lleguen los cambios, por ejemplo, si tengo una feature que quiero mergear con master, me tengo que
+      parar en master y DESDE MASTER invocar el comando git merge.
+
+29. git branch: así solito, sin ninguna flag ni nombres, nos muestra las ramas que tenemos y en cual estamos parados.
+
+30. git merge <nombre de la rama que quiero mergear> -m '<mensaje para el commit>': hace el merge de las ramas.
+
+31. git remote add <nombre que quiero darle al "stream"> <URL del repositorio en github, gitlab, etc>: para agregar un repositorio remoto.
+
+32. git remote -v: para ver los remotes que tengo.
+
+33. git push <nombre del remote al que quiero enviar el ultimo commit de la rama> <rama que quiero enviar>: para enviar mi ultimo commit local al repositorio remoto. 
+
+34. git pull <nombre del remote del que quiero traer los ultimos cambios> <rama de la que quiero traer los ultimos cambios>: para traer los cambios del repositorio remoto al local.
+
+35. git pull <nombre del remote del que quiero traer los ultimos cambios> <rama de la que quiero traer los ultimos cambios> --allow-unrelated-histories: para cuando intento hacer un 
+    pull y me sale el warning de fatal: refusing to merge unrelated histories, con este comando fuerzo a que se haga el merge.
+
+NOTA: comando pera generar llaves ssh...ssh-keygen -t rsa -b 4096 -C "Alejandro.franco@teaminternational.com", luego de generar las llaves, hay que asegurarnos de que la llave
+      se agregó al entorno global de nuestra máquina, para esto debemos aseguranos de que el "servidor de llaves" este prendido, es un programita que revisa que las llaves esten
+      corriendo y las conecta con github, para revisar que este programita este prendido, usamos este comando... eval $(ssh-agent -s), luego de verificar que el programita
+      esta prendido, tenemos que agregarle la llave a este programita, para esto usamos este comando ssh-add <ruta donde tenemos la llave PUBLICA>.
+
+36. git remote set-url <nombre del remote al que quiero cambiarle la url> <url>: para cuando tengo un remote y quiero cambiarle la url a la que esta asociado.
+
+      NOTA: Antes de hacer un commit es buena practica siempre hacer pull.
+
+37. git log --all: muestra tooodos los commits porque en ocasiones no muestra algunos dependiendo de que ha pasado con las ramas.
+
+38. git log --all --graph: muestra todos los commits con unas rayitas bonitas de como han funcionado las ramas.
+
+39. git log --all --graph --decorate --online: lo de arriba pero mas resumido y bonito.
+
+40. git tag -a <nombre que quiero ponerle al tag> -m '<mensaje descriptivo>' <hash del commit al que quiero agregarle el tag>: para agregarle tags a commits.
+
+41. git tag: muestra la lista de todos los tags.
+
+42. git show-ref --tags: muestra a que commits estan conectados los tags.
+
+43. git push <nombre del remote> --tags: para enviar al repositorio remoto, solo los tags.
+
+44. git tag -d <nombre del tag que quiero borrar>: para borrar tags localmente, pero nos los borra de github.
+
+45. git push <nombre del remote> :refs/tags/<nombre del tag que quiero borrar de github>: para borrar los tags de github.
+
+46. git show-branch --all: muestra las ramas que tengo pero con mas detalles.
+
+47. gitk: abre un software que me muestra de manera super visual la historia de todas las ramas.
+
+48. git branch -m <nombre nuevo que quiero ponerle a la rama>: parado en la rama que quiero renombrar, ejecutar este comando.
+
+49. git clone <url del repo>: para traerme el repositorio remoto a mi maquina local, "cuando entro a un proyecto nuevo, ya no hago git init, sino git clone".
+
+NOTA: git rebase es para hacer cambios calladitos en master, como si la rama en la que arreglamos los cambios nunca hubiese exisitido, esto es muy mala practica en repositorios
+      remotos, es para repositorios remotos y se hace así, creo una rama para arreglar la pifia, parado en esa rama donde arregle la pifia, hago rebase para que traiga los camibos 
+      de master, una vez haya hecho rebase en la rama donde arregle la pifia, me cambio a master y desde master hago rebase con la rama donde arregle la pifia y listo, la pifia queda
+      arreglada y es como si nada hubiese pasado en master, como si la rama donde arregle la pifia nunca hubiese exisitido, no queda rastro de esta en la historia.}
+
+50. git rebase <rama en de la que quiero traer las cosas>: ejemplo parados en la rama experimento, hago git rebase master, esto me trae los cambios de master a mi rama experimento,
+    luego parados en master hago git rebase experimento y me quedan los cambios que hice en experimento en master.}
+
+51. git stash: para tener cambios guardados y poder moverme entre ramas, hacer pulls y esas cosas sin perder los cambios
+
+52. git stash list: para ver lo que tenga en stash.
+
+53. git stash pop: para abrir el stash que tenia.
+
+54. git stash branch <nombre de la rama>: para poner los cambios que tengo en stash en otra rama (si la rama no existe, la crea).
+
+NOTA: cuando cometo una pifia y lo GUARDO (ctrl+s), puedo hacer git stash para que vuelve al estado anterior y la pifia quede en stash, entonces quiero borrar ese stash que tiene
+      la pifia, esto se hace con el siguiente comando...
+
+55. git stash drop: para borrar lo que tengo en stash.
+
+NOTA: ejmplos de uso de git stash.... cuando estoy haciendo pequeños experimentos que no merecen una rama, ni un rebase, sino que simplemente estoy probando algo y luego quiero
+      volver a la version anterior.... cuando llevo mucho trabajo adelantado y se me olvido hacer commit y necesito datos de otra rama, ir a github y hacer pulls y esas cosas,
+      puedo guardar lo que tengo con git stash y ahí moverme y hacer las cosas que tengo que hacer, que luego con git pop recupero los cambios que tenía en stash.
+
+56. git clean --dry-run: con git clean, limpiamos el los archivos que no necesitamos en el proyecto, con el dry run, nos muestra que pasaría si lo ejecutamos, eso nos muestra que va 
+    a borrar.
+
+57. git clean -f: ejecuta el comando y borra cosas, peeeero no borra carpetas, ni lo que este en .gitignore.
+
+58. git cherry-pick <hash del commit que quiero traer>: para trarme un commit especifico a alguna rama: el jefe me dice que quiere en master unos cambios de una rama que todavia
+    no esta terminada, entonces parado en master hago git cherry-pick <hash> para traer el commit especifico que quier el jefe tan urgentemente.
+
+59. git reflog: esta vaina salva vidas, aunque nos hayamos tirado tooodo, git reflog no olvida nadaaa y nos muestra todo lo que ha pasado y además, me da un hashes para poder volver
+    a cuando todo estaba bien.
+
+60. git reset --hard <hash que saque de reflog>: para volver a donde todo estaba bien.
+
+61. git commit --amend: añade lo que se me olvido al commit que había hecho antes.
+
+62. git grep <la palabra que quiera buscar>: si, grep funciona en git. (esto busca en el codigo)
+
+63. git log -S "palabra que quiero buscar": con este busco palabras pero en los commits que haya hecho.
+
+64. git shortlog: para ver los commits que han hecho las personas del equipo.
+
+65. git shortlog -sn: me lo muestra mas resumido (no tienen en cuenta los commits borrados)
+
+66. git shortlog -sn --all: tienen en cuenta toooodos los commits.
+
+67. git shortlog -sn --all --no-merges: no tiene en cuenta los merges.
+
+68. git config --global alias.<nombre que quiero darle al alias> "comando (sin el git del principio)": para crear alias en git.
+
+69. git blame <nombe del archivo>: para ver quien hizo que.
+
+70. git blame -c <nombre del archivo>: indenta un poco mejor.
+
+71. git branch -r: para ver las ramas remotas.
+
+72. git branch -a: para ver tooodas las ramas, en blanco locales y en rojo remotas.
+
+
